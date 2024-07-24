@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Card Counter</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+        }
+        h1 {
+            text-align: center;
+            margin-top: 20px;
+        }
+        .container {
+            display: flex;
+            justify-content: space-around;
+            margin-left: 0;
+            width: 100%;
+            background: #fff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        }
+        .cards {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+        }
+        .hero-catalog {
+            flex: 1;
+            display: grid;
+            grid-template-columns: repeat(10, 1fr);
+            gap: 10px;
+            overflow-y: auto;
+            max-height: 70vh; /* 限制高度，允许滚动 */
+        }
+        .selected-heroes {
+            width: 250px; /* 固定宽度 */
+            display: grid;
+            grid-template-columns: 1fr; /* 每行一个英雄 */
+            gap: 10px;
+            justify-content: center;
+        }
+        .deck {
+            width: 300px; /* 固定宽度 */
+            display: grid;
+            grid-template-columns: repeat(4, 1fr); /* 每行三个英雄 */
+            gap: 10px;
+            justify-content: center;
+        }
+        .hero, .card {
+            background: none;
+            border-radius: 5px;
+            cursor: pointer;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            width: 100px; /* 确保所有英雄格子宽度一致 */
+            height: 100px; /* 确保所有英雄格子高度一致 */
+            box-sizing: border-box;
+            overflow: hidden; /* 确保图片超出格子时被裁剪 */
+        }
+        .hero img, .card img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover; /* 确保图片在格子内以满版方式显示 */
+        }
+        .hero.selected {
+            border: 2px solid #ff6347; /* 增加边框以示选中状态 */
+        }
+        .hero.inactive {
+            background: #6c757d;
+            pointer-events: none;
+        }
+        .grayscale img {
+            filter: grayscale(100%);
+        }
+        .button-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+        }
+        .filter-buttons {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        .filter-buttons button {
+            background: #fff;
+            color: #000;
+            border: 2px solid #000;
+            padding: 5px 10px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 0 5px;
+        }
+        .filter-buttons button.active {
+            background: #000;
+            color: #fff;
+        }
+        .filter-buttons button.gold {
+            border-color: gold;
+        }
+        .filter-buttons button.purple {
+            border-color: purple;
+        }
+        .filter-buttons button.blue {
+            border-color: blue;
+        }
+        .filter-buttons button.white {
+            border-color: silver;
+        }
+        button {
+            background: #28a745;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        button:hover {
+            background: #218838;
+        }
+    </style>
+</head>
+<body>
+    <h1>Card Counter</h1>
+    <div class="container">
+        <div class="cards">
+            <h2>Select Opponent's Heroes:</h2>
+            <div class="filter-buttons">
+                <button data-rarity="0" onclick="filterHeroes(0)">All</button>
+				<button class="gold" data-rarity="4" onclick="filterHeroes(4)">Gold</button>
+				<button class="purple" data-rarity="3" onclick="filterHeroes(3)">Purple</button>
+				<button class="blue" data-rarity="2" onclick="filterHeroes(2)">Blue</button>
+				<button class="white" data-rarity="1" onclick="filterHeroes(1)">White</button>
+            </div>
+            <div id="hero-catalog" class="hero-catalog"></div>
+        </div>
+        <div class="cards">
+            <h2>This Round's Selected Heroes:</h2>
+            <div id="selected-heroes" class="selected-heroes"></div>
+        </div>
+        <div class="cards">
+            <h2>Opponent's Deck:</h2>
+            <div id="deck" class="deck"></div>
+        </div>
+    </div>
+    <div class="button-container">
+        <button onclick="playRound()">Confirm Round</button>
+        <button onclick="resetGame()">Reset</button>
+    </div>
+    <script src="heroData.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
