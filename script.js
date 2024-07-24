@@ -90,6 +90,10 @@ function playRound() {
         alert("Please select exactly 3 heroes.");
         return;
     }
+    if (selectedHeroes.length + deck.length > 13){
+        alert("Exceeded deck limit");
+        return;
+    }
     selectedHeroes.forEach(hero => {
         if (!deck.includes(hero)) {
             insertInOrder(deck, hero);
@@ -107,7 +111,7 @@ function playRound() {
     }
 
     // 如果牌組中有13個英雄，鎖定圖鑑中的所有英雄
-    if (deck.length > 13) {
+    if (deck.length > 12) {
         isCatalogLocked = true;
         availableHeroes.forEach(hero => {
             hero.isLocked = true;
