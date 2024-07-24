@@ -107,7 +107,7 @@ function playRound() {
     }
 
     // 如果牌組中有13個英雄，鎖定圖鑑中的所有英雄
-    if (deck.length === 13) {
+    if (deck.length > 13) {
         isCatalogLocked = true;
         availableHeroes.forEach(hero => {
             hero.isLocked = true;
